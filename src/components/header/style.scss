@@ -1,0 +1,18 @@
+.header-profile {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  /* tile uploaded pictures */
+  .avatar-item {
+    margin-left: 32px;
+    margin-right: 45px;
+    cursor: pointer;
+  }
+
+  [class*='-col-rtl'] .avatar-item {
+    margin-right: 0;
+    margin-left: 24px;
+  }
+}
+
