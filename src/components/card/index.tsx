@@ -34,7 +34,7 @@ export const CardEvent: React.FC<Event> = ({
         <Card
           bordered={false}
           className="card"
-          cover={<img alt={title} src={image} />}
+          cover={<img alt={title} src={image} className="card-image" />}
         >
           <div className="card-content">
             <Row align="middle" justify="space-between">

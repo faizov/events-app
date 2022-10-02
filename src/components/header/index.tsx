@@ -28,7 +28,9 @@ const menu = (
 export const Header = () => {
   return (
     <div className="header-profile">
-      <Button type="primary">Create Event</Button>
+      <Button type="primary" href="add">
+        Create Event
+      </Button>
       <span className="avatar-item">
         <Badge dot>
           <Dropdown overlay={menu} trigger={["click"]}>

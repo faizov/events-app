@@ -1,13 +1,22 @@
 .card {
-  max-width: 340px;
+  max-width: 350px;
   border-radius: 30px;
 
   @media screen and (max-width: 900px) {
     max-width: 100%;
   }
 
-  img {
+  &-image {
+    background-color: #ffffff;
+  }
+
+  img.card-image {
     border-radius: 30px 30px 0 0;
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    object-fit: cover;
   }
  
   .card-content {
