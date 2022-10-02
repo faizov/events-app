@@ -1,7 +1,5 @@
-import { RouterProvider } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-
-import { router } from "./pages";
 
 import { Header as HeaderComponent } from "./components/header";
 import "antd/dist/antd.css";
@@ -15,7 +13,7 @@ export default function App() {
         <HeaderComponent />
       </Header>
       <Content style={{ padding: 50 }}>
-        <RouterProvider router={router} />
+        <Outlet />
       </Content>
       {/* <Footer>Footer</Footer> */}
     </Layout>

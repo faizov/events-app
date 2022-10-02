@@ -1,4 +1,5 @@
 import { Avatar, Badge, Dropdown, Menu, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
@@ -26,9 +27,11 @@ const menu = (
 );
 
 export const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="header-profile">
-      <Button type="primary" href="add">
+      <Button type="primary" onClick={() => navigate("/add")}>
         Create Event
       </Button>
       <span className="avatar-item">

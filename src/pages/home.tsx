@@ -16,21 +16,23 @@ export const Home = () => {
     <div>
       <Row gutter={[32, 32]} justify="start">
         {data &&
-          data.map((item) => {
-            return (
-              <Col key={item.id}>
-                <CardEvent
-                  id={item.id}
-                  title={item.title}
-                  author={item.author}
-                  image={item.image}
-                  authorAvatar={item.authorAvatar}
-                  date={item.date}
-                  likes={item.likes}
-                />
-              </Col>
-            );
-          })}
+          data
+            .map((item) => {
+              return (
+                <Col key={item.id}>
+                  <CardEvent
+                    id={item.id}
+                    title={item.title}
+                    author={item.author}
+                    image={item.image}
+                    authorAvatar={item.authorAvatar}
+                    date={item.date}
+                    likes={item.likes}
+                  />
+                </Col>
+              );
+            })
+            .reverse()}
       </Row>
     </div>
   );
