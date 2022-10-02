@@ -1,11 +1,15 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-
 import App from "./App";
 
-ReactDOM.render(
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+const rootElement = document.getElementById("root");
+
+// 👇️ use type assertion
+const root = createRoot(rootElement as Element);
+
+root.render(
   <StrictMode>
     <App />
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );
