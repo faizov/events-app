@@ -21,7 +21,6 @@ const validateMessages = {
 
 export const AddPost = () => {
   const onFinish = (values: any) => {
-    console.log(values);
     if (values) {
       fetch("https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events", {
         method: "POST",

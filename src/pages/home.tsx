@@ -14,7 +14,7 @@ export const Home = () => {
 
   return (
     <div>
-      <Row gutter={[32, 32]} justify="end">
+      <Row gutter={[32, 32]} justify="start">
         {data &&
           data.map((item) => {
             return (
