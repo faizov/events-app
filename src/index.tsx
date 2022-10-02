@@ -6,7 +6,7 @@ import { createRoot } from "react-dom/client";
 const rootElement = document.getElementById("root");
 
 // 👇️ use type assertion
-const root = createRoot(rootElement as Element);
+const root = createRoot(rootElement!);
 
 root.render(
   <StrictMode>
