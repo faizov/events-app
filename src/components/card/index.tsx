@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Avatar, Col, Row, Typography, Statistic } from "antd";
 
-import { UserOutlined, LikeOutlined } from "@ant-design/icons";
+import { UserOutlined, HeartTwoTone } from "@ant-design/icons";
 
 import "./style.scss";
 
@@ -44,7 +44,12 @@ export const CardEvent: React.FC<Event> = ({
               <Statistic
                 valueStyle={{ fontSize: 16 }}
                 value={likes}
-                suffix={<LikeOutlined style={{ fontSize: 16 }} />}
+                suffix={
+                  <HeartTwoTone
+                    twoToneColor="#eb2f96"
+                    style={{ fontSize: 16 }}
+                  />
+                }
               />
             </Row>
 

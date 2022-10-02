@@ -29,6 +29,7 @@ export const AddPost = () => {
         },
         body: JSON.stringify({
           title: values.title,
+          description: values.description,
           image: values.image,
           date: new Date()
         })
@@ -44,6 +45,13 @@ export const AddPost = () => {
       validateMessages={validateMessages}
     >
       <Form.Item name={"title"} label="Title" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name={"description"}
+        label="Description"
+        rules={[{ required: true }]}
+      >
         <Input />
       </Form.Item>
       <Form.Item name={"image"} label="Image" rules={[{ required: true }]}>
