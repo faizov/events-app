@@ -26,7 +26,7 @@ interface Event {
 }
 
 export const Post = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [data, setData] = useState<Event>();
 
   useEffect(() => {
