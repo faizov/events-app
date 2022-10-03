@@ -1,2 +1,2 @@
 # events-app
-Created with CodeSandbox
+Live: https://events-app-rho.vercel.app/
