@@ -80,7 +80,9 @@ export const Post = () => {
               />
             </Col>
             <Col span={12} md={24} sm={24} lg={24} xl={12}>
-              <Text type="secondary">{data.description}</Text>
+              <Text style={{ whiteSpace: "break-spaces" }} type="secondary">
+                {data.description}
+              </Text>
             </Col>
             <Col span={12} md={24} sm={24} lg={24} xl={12}>
               <Statistic
