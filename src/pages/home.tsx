@@ -19,7 +19,7 @@ export const Home = () => {
           data
             .map((item) => {
               return (
-                <Col key={item.id}>
+                <Col span={24} sm={24} md={12} xl={6} key={item.id}>
                   <CardEvent
                     id={item.id}
                     title={item.title}

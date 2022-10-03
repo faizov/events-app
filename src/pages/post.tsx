@@ -44,7 +44,6 @@ export const Post = () => {
   if (!data) return <>Loading...</>;
 
   const confirm = () => {
-    console.log();
     if (id) {
       fetch(`https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events/${id}`, {
         method: "DELETE",
@@ -61,40 +60,55 @@ export const Post = () => {
   };
 
   return (
-    <Space align="start" direction="vertical" size="large">
+    <>
       <PageHeader
         className="site-page-header"
         onBack={() => navigate(-1)}
         title={data.title}
       />
 
-      <Row>
-        <Space align="start" size="large">
-          <Image
-            width={500}
-            height={500}
-            src={data.image}
-            preview={false}
-            style={{ objectFit: "cover", borderRadius: 30 }}
-          />
-          <Col span={12}>
-            <Text type="secondary">{data.description}</Text>
-          </Col>
-          <Popconfirm
-            title="Are you sure to delete this task?"
-            onConfirm={confirm}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger>Delete Post</Button>
-          </Popconfirm>
-        </Space>
-      </Row>
+      <Row justify="space-between" gutter={[32, 32]}>
+        <Col span={16} sm={24} md={16}>
+          <Row gutter={[32, 32]}>
+            <Col span={12} md={24} sm={24} lg={12}>
+              <Image
+                width={500}
+                height={500}
+                src={data.image}
+                preview={false}
+                style={{ objectFit: "cover", borderRadius: 30 }}
+              />
+            </Col>
+            <Col span={12} md={24} sm={24} lg={24} xl={12}>
+              <Text type="secondary">{data.description}</Text>
+            </Col>
+            <Col span={12} md={24} sm={24} lg={24} xl={12}>
+              <Statistic
+                value={data.likes}
+                prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
+              />
+            </Col>
+          </Row>
+        </Col>
 
-      <Statistic
-        value={data.likes}
-        prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
-      />
-    </Space>
+        <Col span={2} sm={24} lg={2}>
+          <Space direction="vertical">
+            <Button block disabled>
+              Edit Post
+            </Button>
+            <Popconfirm
+              title="Are you sure to delete this task?"
+              onConfirm={confirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button block danger>
+                Delete Post
+              </Button>
+            </Popconfirm>
+          </Space>
+        </Col>
+      </Row>
+    </>
   );
 };
