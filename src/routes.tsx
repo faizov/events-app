@@ -4,6 +4,7 @@ import App from "./App";
 import { Home } from "./pages/home";
 import { AddPost } from "./pages/add";
 import { Post } from "./pages/post";
+import { Edit } from "./pages/edit";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ export const router = createBrowserRouter([
       {
         path: "/event/:id",
         element: <Post />
-      }
+      },
+      {
+        path: "/edit/:id",
+        element: <Edit />
+      },
     ]
   }
 ]);

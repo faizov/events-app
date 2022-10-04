@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import {
   PageHeader,
@@ -63,14 +63,14 @@ export const Post = () => {
     <>
       <PageHeader
         className="site-page-header"
-        onBack={() => navigate(-1)}
+        onBack={() => navigate("/")}
         title={data.title}
       />
 
       <Row justify="space-between" gutter={[32, 32]}>
-        <Col span={16} sm={24} md={16}>
+        <Col sm={24} md={16} lg={20}>
           <Row gutter={[32, 32]}>
-            <Col span={12} md={24} sm={24} lg={12}>
+            <Col span={12} md={24} sm={24} lg={11}>
               <Image
                 width={500}
                 height={500}
@@ -78,26 +78,25 @@ export const Post = () => {
                 preview={false}
                 style={{ objectFit: "cover", borderRadius: 30 }}
               />
-            </Col>
-            <Col span={12} md={24} sm={24} lg={24} xl={12}>
-              <Text style={{ whiteSpace: "break-spaces" }} type="secondary">
-                {data.description}
-              </Text>
-            </Col>
-            <Col span={12} md={24} sm={24} lg={24} xl={12}>
+
               <Statistic
                 value={data.likes}
                 prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
               />
+            </Col>
+            <Col md={24} sm={24} lg={9} xl={12}>
+              <Text style={{ whiteSpace: "break-spaces" }} type="secondary">
+                {data.description}
+              </Text>
             </Col>
           </Row>
         </Col>
 
         <Col span={2} sm={24} lg={2}>
           <Space direction="vertical">
-            <Button block disabled>
-              Edit Post
-            </Button>
+            <Link to={`/edit/${data.id}`}>
+              <Button block>Edit Post</Button>
+            </Link>
             <Popconfirm
               title="Are you sure to delete this task?"
               onConfirm={confirm}
