@@ -20,7 +20,6 @@ import {
   useDeleteEventMutation
 } from "../__data__/services/events";
 
-
 const { Text } = Typography;
 
 export const Post = () => {
@@ -52,6 +51,9 @@ export const Post = () => {
         className="site-page-header"
         onBack={() => navigate("/")}
         title={data.title}
+        style={{
+          padding: "0 0 40px 0"
+        }}
       />
 
       <Row justify="space-between" gutter={[32, 32]}>

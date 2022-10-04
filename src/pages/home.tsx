@@ -1,4 +1,5 @@
-import { Col, Row, Spin } from "antd";
+import { Link } from "react-router-dom";
+import { Col, Row, Spin, Empty, Button } from "antd";
 
 import { useGetEventsQuery, Event } from "../__data__/services/events";
 
@@ -8,6 +9,22 @@ export const Home = () => {
   const { data, isLoading } = useGetEventsQuery();
 
   if (isLoading) return <Spin size="large" />;
+
+  if (data?.length === 0) {
+    return (
+      <Empty
+        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        imageStyle={{
+          height: 60
+        }}
+        description={<span>No Events :(</span>}
+      >
+        <Link to="/add">
+          <Button type="primary">Create Event</Button>
+        </Link>
+      </Empty>
+    );
+  }
 
   return (
     <div>
