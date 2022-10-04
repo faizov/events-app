@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button, Form, Input, PageHeader, Space, Col, message } from "antd";
+import { Button, Form, Input, PageHeader, Space, Spin } from "antd";
+
+import {
+  useGetEventByIdQuery,
+  useUpdateEventMutation
+} from "../__data__/services/events";
 
 const { TextArea } = Input;
 
@@ -35,40 +39,22 @@ export const Edit = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const [data, setData] = useState<Event>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { data, isLoading: loadingEvent } = useGetEventByIdQuery(id);
+  const [updateEvent, { isLoading }] = useUpdateEventMutation();
 
-  useEffect(() => {
-    if (id) {
-      fetch(`https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events/${id}`)
-        .then((response) => response.json())
-        .then((data) => setData(data));
-    }
-  }, [id]);
+  if (loadingEvent || isLoading) {
+    return <Spin />;
+  }
 
-  if (!data) return <>Loading...</>;
-
-  const edit = (values: any) => {
-    message.loading("Action in progress..", 5);
-    setLoading(true);
-    if (id && values) {
-      fetch(`https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          image: values.image,
-          date: new Date()
-        })
-      }).then((response) => {
-        if (response.status) {
-          message.success("Loading finished", 2.5);
-          navigate(`/event/${id}`);
-        }
-      });
+  const edit = async (patch: any) => {
+    if (id && patch) {
+      try {
+        await updateEvent({ id, ...patch }).then(
+          () => navigate(`/event/${id}`)
+        );
+      } catch (e) {
+        console.log("error", e);
+      }
     }
   };
 
@@ -84,22 +70,27 @@ export const Edit = () => {
         name="nest-messages"
         onFinish={edit}
         validateMessages={validateMessages}
+        initialValues={{
+          title: data.title,
+          description: data.description,
+          image: data.image
+        }}
       >
         <Form.Item name={"title"} label="Title" rules={[{ required: true }]}>
-          <Input defaultValue={data.title} />
+          <Input />
         </Form.Item>
         <Form.Item
           name={"description"}
           label="Description"
           rules={[{ required: true }]}
         >
-          <TextArea rows={10} defaultValue={data.description} />
+          <TextArea rows={10} />
         </Form.Item>
         <Form.Item name={"image"} label="Image" rules={[{ required: true }]}>
-          <Input defaultValue={data.image} />
+          <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             Edit post
           </Button>
         </Form.Item>

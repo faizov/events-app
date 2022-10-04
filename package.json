@@ -4,11 +4,12 @@
   "main": "src/index.tsx",
   "dependencies": {
     "@babel/preset-typescript": "7.18.6",
-    "@reduxjs/toolkit": "1.8.5",
+    "@reduxjs/toolkit": "^1.8.5",
     "@typescript-eslint/parser": "5.38.1",
     "antd": "4.23.3",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-redux": "^8.0.4",
     "react-router-dom": "6.4.1",
     "react-scripts": "4.0.3",
     "sass": "1.55.0",

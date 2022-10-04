@@ -1,6 +1,7 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, Alert, Row, Col, message } from "antd";
+import { Button, Form, Input, message } from "antd";
+
+import { useAddEventMutation } from "../__data__/services/events";
 
 const { TextArea } = Input;
 
@@ -22,29 +23,17 @@ const validateMessages = {
 
 export const AddPost = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [addEvent, { isLoading }] = useAddEventMutation();
 
-  const onFinish = (values: any) => {
-    message.loading("Action in progress..", 5);
-    setLoading(true);
-    if (values) {
-      fetch("https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          image: values.image,
-          date: new Date()
-        })
-      }).then((response) => {
-        if (response) {
-          message.success("Loading finished", 2.5);
-          navigate(`/`);
-        }
+  const onFinish = async (values: any) => {
+    message.loading("Post in progress..");
+    try {
+      await addEvent(values).then(() => {
+        message.success("Post Added");
+        navigate("/");
       });
+    } catch (e) {
+      console.log("error", e);
     }
   };
 
@@ -70,7 +59,7 @@ export const AddPost = () => {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             Add post
           </Button>
         </Form.Item>

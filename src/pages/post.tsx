@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import {
@@ -11,51 +10,39 @@ import {
   Typography,
   message,
   Popconfirm,
-  Button
+  Button,
+  Spin
 } from "antd";
 import { HeartTwoTone } from "@ant-design/icons";
 
-const { Text } = Typography;
+import {
+  useGetEventByIdQuery,
+  useDeleteEventMutation
+} from "../__data__/services/events";
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  author: string;
-  authorAvatar: string;
-  date: Date;
-  likes: number;
-}
+
+const { Text } = Typography;
 
 export const Post = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [data, setData] = useState<Event>();
 
-  useEffect(() => {
+  const { data, isLoading } = useGetEventByIdQuery(id);
+  const [deleteEvent, { isLoading: isLoadingDelete }] =
+    useDeleteEventMutation();
+
+  if (isLoading) return <Spin />;
+
+  const confirm = async () => {
     if (id) {
-      fetch(`https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events/${id}`)
-        .then((response) => response.json())
-        .then((data) => setData(data));
-    }
-  }, [id]);
-
-  if (!data) return <>Loading...</>;
-
-  const confirm = () => {
-    if (id) {
-      fetch(`https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then((response) => {
-        if (response.status) {
+      try {
+        await deleteEvent(id).then(() => {
           message.success("Post deleted!");
           navigate("/");
-        }
-      });
+        });
+      } catch (e) {
+        console.log("error", e);
+      }
     }
   };
 
@@ -103,7 +90,7 @@ export const Post = () => {
               okText="Yes"
               cancelText="No"
             >
-              <Button block danger>
+              <Button block danger loading={isLoadingDelete}>
                 Delete Post
               </Button>
             </Popconfirm>

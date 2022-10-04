@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Spin } from "antd";
+
+import { useGetEventsQuery, Event } from "../__data__/services/events";
 
 import { CardEvent } from "../components/card";
 
 export const Home = () => {
-  const [data, setData] = useState<any[]>([]);
+  const { data, isLoading } = useGetEventsQuery();
 
-  useEffect(() => {
-    fetch("https://6338577a132b46ee0bee7f64.mockapi.io/api/v1/events")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
+  if (isLoading) return <Spin size="large" />;
 
   return (
     <div>
       <Row gutter={[32, 32]} justify="start">
         {data &&
           data
-            .map((item) => {
+            .map((item: Event) => {
               return (
                 <Col span={24} sm={24} md={12} xl={6} key={item.id}>
                   <CardEvent
