@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { Button, Form, Input, PageHeader, Space, Spin } from "antd";
+import { Button, Form, Input, PageHeader, Space, Spin, message } from "antd";
 
 import {
   useGetEventByIdQuery,
@@ -24,17 +24,6 @@ const validateMessages = {
   }
 };
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  author: string;
-  authorAvatar: string;
-  date: Date;
-  likes: number;
-}
-
 export const Edit = () => {
   const navigate = useNavigate();
 
@@ -47,11 +36,14 @@ export const Edit = () => {
   }
 
   const edit = async (patch: any) => {
+    message.loading("Post in progress..");
+
     if (id && patch) {
       try {
-        await updateEvent({ id, ...patch }).then(
-          () => navigate(`/event/${id}`)
-        );
+        await updateEvent({ id, ...patch }).then(() => {
+          message.success("Post Edit!");
+          navigate(`/event/${id}`);
+        });
       } catch (e) {
         console.log("error", e);
       }

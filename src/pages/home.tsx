@@ -40,7 +40,7 @@ export const Home = () => {
                     author={item.author}
                     image={item.image}
                     authorAvatar={item.authorAvatar}
-                    date={item.date}
+                    dateCreate={item.dateCreate}
                     likes={item.likes}
                   />
                 </Col>

@@ -1,9 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, message } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  message,
+  DatePicker,
+  PageHeader,
+  Space
+} from "antd";
 
 import { useAddEventMutation } from "../__data__/services/events";
 
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 const layout = {
   labelCol: { span: 2 },
@@ -27,6 +36,7 @@ export const AddPost = () => {
 
   const onFinish = async (values: any) => {
     message.loading("Post in progress..");
+
     try {
       await addEvent(values).then(() => {
         message.success("Post Added");
@@ -38,7 +48,12 @@ export const AddPost = () => {
   };
 
   return (
-    <>
+    <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+      <PageHeader
+        className="site-page-header"
+        onBack={() => navigate(-1)}
+        title="Add post"
+      />
       <Form
         {...layout}
         name="nest-messages"
@@ -55,6 +70,14 @@ export const AddPost = () => {
         >
           <TextArea rows={4} />
         </Form.Item>
+        <Form.Item
+          name={"dateEvent"}
+          label="Date Event"
+          rules={[{ required: true }]}
+        >
+          <RangePicker showTime={{ format: "HH" }} format="YYYY-MM-DD HH" />
+        </Form.Item>
+
         <Form.Item name={"image"} label="Image" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
@@ -64,6 +87,6 @@ export const AddPost = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </Space>
   );
 };

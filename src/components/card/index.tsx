@@ -25,7 +25,7 @@ export const CardEvent: React.FC<Event> = ({
   image,
   author,
   authorAvatar,
-  date,
+  dateCreate,
   likes
 }) => {
   return (
@@ -69,7 +69,7 @@ export const CardEvent: React.FC<Event> = ({
               </Col>
               <Col>
                 <Text type="secondary">
-                  {new Date(date).toLocaleDateString()}
+                  {new Date(dateCreate).toLocaleDateString()}
                 </Text>
               </Col>
             </Row>
