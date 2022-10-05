@@ -84,18 +84,27 @@ export const Post = () => {
                 preview={false}
                 style={{ objectFit: "cover", borderRadius: 30 }}
               />
-              <Statistic
-                value={data.likes}
-                prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
-              />
             </Col>
             <Col md={24} sm={24} lg={9} xl={10}>
-              <Paragraph>
-                <FieldTimeOutlined
-                  style={{ color: "#2f82eb", marginRight: 10 }}
+              <Space
+                align="baseline"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 20
+                }}
+              >
+                <Typography.Title level={5}>
+                  <FieldTimeOutlined
+                    style={{ color: "#2f82eb", marginRight: 10 }}
+                  />
+                  {startTime}ч - {endTime}ч
+                </Typography.Title>
+                <Statistic
+                  value={data.likes}
+                  prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
                 />
-                {startTime}ч - {endTime}ч
-              </Paragraph>
+              </Space>
               <Text style={{ whiteSpace: "break-spaces" }} type="secondary">
                 {data.description}
               </Text>
