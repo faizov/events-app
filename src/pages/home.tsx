@@ -41,6 +41,7 @@ export const Home = () => {
                     image={item.image}
                     authorAvatar={item.authorAvatar}
                     dateCreate={item.dateCreate}
+                    dateEvent={item.dateEvent}
                     likes={item.likes}
                   />
                 </Col>
