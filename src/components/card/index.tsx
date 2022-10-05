@@ -15,7 +15,8 @@ interface Event {
   image: string;
   author: string;
   authorAvatar: string;
-  date: Date;
+  dateCreate: Date;
+  dateEvent: [];
   likes: number;
 }
 

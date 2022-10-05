@@ -8,6 +8,7 @@ export interface Event {
   author: string;
   authorAvatar: string;
   dateCreate: Date;
+  dateEvent: [];
   likes: number;
 }
 

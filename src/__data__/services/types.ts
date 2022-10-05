@@ -1,9 +1,12 @@
-export type Events = [{
+export type Events = [
+  {
     id: string;
     title: string;
     image: string;
     author: string;
     authorAvatar: string;
-    date: Date;
+    dateCreate: Date;
+    dateEvent: [];
     likes: number;
-}]
+  }
+];
