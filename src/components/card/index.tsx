@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, Avatar, Col, Row, Typography, Statistic } from "antd";
+import { Card, Avatar, Col, Row, Typography, Statistic, Tag } from "antd";
 
 import { UserOutlined, HeartTwoTone } from "@ant-design/icons";
 
@@ -16,7 +16,7 @@ interface Event {
   author: string;
   authorAvatar: string;
   dateCreate: Date;
-  dateEvent: [];
+  dateEvent: string[];
   likes: number;
 }
 
@@ -27,10 +27,18 @@ export const CardEvent: React.FC<Event> = ({
   author,
   authorAvatar,
   dateCreate,
+  dateEvent,
   likes
 }) => {
+  const startTime =
+    dateEvent && new Date(dateEvent[0]).toLocaleDateString("ru-RU");
+
   return (
-    <>
+    <div className="content">
+      <div className="tags">
+        <Tag color="#108ee9">Event</Tag>
+      </div>
+
       <Link to={`event/${id}`}>
         <Card
           bordered={false}
@@ -70,13 +78,14 @@ export const CardEvent: React.FC<Event> = ({
               </Col>
               <Col>
                 <Text type="secondary">
-                  {new Date(dateCreate).toLocaleDateString()}
+                  {/* {new Date(dateCreate).toLocaleDateString()} */}
+                  {startTime}
                 </Text>
               </Col>
             </Row>
           </div>
         </Card>
       </Link>
-    </>
+    </div>
   );
 };

@@ -1,0 +1,23 @@
+.site-page-header {
+  padding: 0 0 40px 0
+}
+
+.post-image {
+  max-height: 700px;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+.post-header-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &-icon {
+    color: #2f82eb;
+    margin-right: 10px;
+  }
+}
+.post-description {
+  white-space: break-spaces;
+}

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Col, Row, Spin, Empty, Button } from "antd";
 
-import { useGetEventsQuery, Event } from "../__data__/services/events";
+import { useGetEventsQuery, Event } from "../../__data__/services/events";
 
-import { CardEvent } from "../components/card";
+import { CardEvent } from "../../components/card";
 
 export const Home = () => {
   const { data, isLoading } = useGetEventsQuery();

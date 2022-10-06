@@ -1,10 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
-import { Home } from "./pages/home";
-import { AddPost } from "./pages/add";
-import { Post } from "./pages/post";
-import { Edit } from "./pages/edit";
+import { Home, AddPost, EditPost, Post } from "./pages";
 
 export const router = createBrowserRouter([
   {
@@ -24,8 +21,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/edit/:id",
-        element: <Edit />
-      },
+        element: <EditPost />
+      }
     ]
   }
 ]);

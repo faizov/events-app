@@ -1,22 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Form,
-  Input,
-  message,
-  DatePicker,
-  PageHeader,
-  Space
-} from "antd";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button, Form, Input, PageHeader, Space, Spin, message } from "antd";
 
-import { useAddEventMutation } from "../__data__/services/events";
+import {
+  useGetEventByIdQuery,
+  useUpdateEventMutation
+} from "../../__data__/services/events";
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 
 const layout = {
   labelCol: { span: 2 },
-  wrapperCol: { span: 6 }
+  wrapperCol: { md: 10, sm: 24 }
 };
 
 const validateMessages = {
@@ -30,20 +24,29 @@ const validateMessages = {
   }
 };
 
-export const AddPost = () => {
+export const EditPost = () => {
   const navigate = useNavigate();
-  const [addEvent, { isLoading }] = useAddEventMutation();
 
-  const onFinish = async (values: any) => {
+  const { id } = useParams();
+  const { data, isLoading: loadingEvent } = useGetEventByIdQuery(id);
+  const [updateEvent, { isLoading }] = useUpdateEventMutation();
+
+  if (loadingEvent || isLoading) {
+    return <Spin />;
+  }
+
+  const edit = async (patch: any) => {
     message.loading("Post in progress..");
 
-    try {
-      await addEvent(values).then(() => {
-        message.success("Post Added");
-        navigate("/");
-      });
-    } catch (e) {
-      console.log("error", e);
+    if (id && patch) {
+      try {
+        await updateEvent({ id, ...patch }).then(() => {
+          message.success("Post Edit!");
+          navigate(`/event/${id}`);
+        });
+      } catch (e) {
+        console.log("error", e);
+      }
     }
   };
 
@@ -52,13 +55,18 @@ export const AddPost = () => {
       <PageHeader
         className="site-page-header"
         onBack={() => navigate(-1)}
-        title="Add post"
+        title="Edit post"
       />
       <Form
         {...layout}
         name="nest-messages"
-        onFinish={onFinish}
+        onFinish={edit}
         validateMessages={validateMessages}
+        initialValues={{
+          title: data.title,
+          description: data.description,
+          image: data.image
+        }}
       >
         <Form.Item name={"title"} label="Title" rules={[{ required: true }]}>
           <Input />
@@ -68,22 +76,14 @@ export const AddPost = () => {
           label="Description"
           rules={[{ required: true }]}
         >
-          <TextArea rows={4} />
+          <TextArea rows={16} />
         </Form.Item>
-        <Form.Item
-          name={"dateEvent"}
-          label="Date Event"
-          rules={[{ required: true }]}
-        >
-          <RangePicker showTime={{ format: "HH" }} format="YYYY-MM-DD HH" />
-        </Form.Item>
-
         <Form.Item name={"image"} label="Image" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
           <Button type="primary" htmlType="submit" loading={isLoading}>
-            Add post
+            Edit post
           </Button>
         </Form.Item>
       </Form>

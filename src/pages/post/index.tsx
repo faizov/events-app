@@ -19,7 +19,9 @@ import { HeartTwoTone, FieldTimeOutlined } from "@ant-design/icons";
 import {
   useGetEventByIdQuery,
   useDeleteEventMutation
-} from "../__data__/services/events";
+} from "../../__data__/services/events";
+
+import "./style.scss";
 
 const { Text, Paragraph } = Typography;
 
@@ -68,36 +70,18 @@ export const Post = () => {
         className="site-page-header"
         onBack={() => navigate("/")}
         title={data.title}
-        style={{
-          padding: "0 0 40px 0"
-        }}
       />
 
       <Row justify="space-between" gutter={[32, 32]}>
         <Col sm={24} md={16} lg={20}>
           <Row gutter={[32, 32]}>
-            <Col span={12} md={24} sm={24} lg={10}>
-              <Image
-                width={500}
-                height={500}
-                src={data.image}
-                preview={false}
-                style={{ objectFit: "cover", borderRadius: 30 }}
-              />
+            <Col span={24} md={24} sm={24} lg={10}>
+              <Image className="post-image" src={data.image} preview={false} />
             </Col>
             <Col md={24} sm={24} lg={9} xl={10}>
-              <Space
-                align="baseline"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: 20
-                }}
-              >
+              <Space align="baseline" className="post-header-info">
                 <Typography.Title level={5}>
-                  <FieldTimeOutlined
-                    style={{ color: "#2f82eb", marginRight: 10 }}
-                  />
+                  <FieldTimeOutlined className="post-header-info-icon" />
                   {startTime}ч - {endTime}ч
                 </Typography.Title>
                 <Statistic
@@ -105,7 +89,7 @@ export const Post = () => {
                   prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
                 />
               </Space>
-              <Text style={{ whiteSpace: "break-spaces" }} type="secondary">
+              <Text className="post-description" type="secondary">
                 {data.description}
               </Text>
             </Col>
