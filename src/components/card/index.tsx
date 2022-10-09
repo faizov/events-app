@@ -77,10 +77,7 @@ export const CardEvent: React.FC<Event> = ({
                 />
               </Col>
               <Col>
-                <Text type="secondary">
-                  {/* {new Date(dateCreate).toLocaleDateString()} */}
-                  {startTime}
-                </Text>
+                <Text type="secondary">{startTime}</Text>
               </Col>
             </Row>
           </div>

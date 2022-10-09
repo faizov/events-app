@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import {
@@ -11,8 +12,7 @@ import {
   message,
   Popconfirm,
   Button,
-  Spin,
-  Timeline
+  Spin
 } from "antd";
 import { HeartTwoTone, FieldTimeOutlined } from "@ant-design/icons";
 
@@ -28,6 +28,7 @@ const { Text, Paragraph } = Typography;
 export const Post = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [like, setLike] = useState(false);
 
   const { data, isLoading } = useGetEventByIdQuery(id);
   const [
@@ -84,10 +85,16 @@ export const Post = () => {
                   <FieldTimeOutlined className="post-header-info-icon" />
                   {startTime}ч - {endTime}ч
                 </Typography.Title>
-                <Statistic
-                  value={data.likes}
-                  prefix={<HeartTwoTone twoToneColor="#eb2f96" />}
-                />
+                <Space>
+                  <Statistic value={data.likes} />
+                  <Button
+                    type={like ? "primary" : "text"}
+                    shape="circle"
+                    icon={<HeartTwoTone twoToneColor="#eb2f96" />}
+                    onClick={() => setLike(!like)}
+                    danger={like}
+                  />
+                </Space>
               </Space>
               <Text className="post-description" type="secondary">
                 {data.description}
