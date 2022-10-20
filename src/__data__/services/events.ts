@@ -45,7 +45,7 @@ export const eventsApi = createApi({
       },
       invalidatesTags: [{ type: "Events", id: "LIST" }]
     }),
-    updateEvent: builder.mutation<void, Pick<Event, "id"> & Partial<Event>>({
+    updateEvent: builder.mutation<void, Partial<Event>>({
       query({ id, ...patch }) {
         return {
           url: `events/${id}`,
